@@ -15,20 +15,17 @@
         <TextBox x:Name="txtDepartmentId" HorizontalAlignment="Left" Margin="125,124,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Text="0"/>
         <TextBox x:Name="txtName" HorizontalAlignment="Left" Margin="125,159,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Text="TestDepartmentWPF"/>
 
-        <Label x:Name="lblDeliveryTown" Content="Delivery Town :" HorizontalAlignment="Left" Margin="8,309,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Button x:Name="btnSaveDepartment" Content="Save Department" HorizontalAlignment="Left" Height="Auto" Margin="125,0,0,0" VerticalAlignment="Center" Width="120" Click="btnSaveDepartment_Click"/>
 
-        <Button x:Name="btnSaveDepartment" Content="Save Application" HorizontalAlignment="Left" Height="Auto" Margin="125,0,0,0" VerticalAlignment="Center" Width="120" Click="btnSaveDepartment_Click"/>
-
-        <Label x:Name="lblResponseMessageResult" Content="" HorizontalAlignment="Left" Margin="125,252,0,128"/>
+        <Label x:Name="lblResponseMessageResult" Content="" HorizontalAlignment="Left" Margin="115,300,0,0" VerticalAlignment="Top" Foreground="Green" Visibility="Hidden" Height="40" Width="145" FontSize="16"/>
 
         <DataGrid x:Name="dgDepartments" Margin="255,120,30,30" Width="515" 
                   CanUserAddRows="True"
-                  ItemsSource="{Binding Source=Departments}"
-                  AutoGenerateColumns="False">
+                  ItemsSource="{Binding Source=Departments}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding departmentId}"/>
                 <DataGridTextColumn Header="Name" Binding="{Binding name}"/>
-                <DataGridTextColumn Header="" Binding="{Binding name}"/>
+                <DataGridTextColumn Header="List" Binding="{Binding applicationList}"/>
             </DataGrid.Columns>
         </DataGrid>
         <Button x:Name="btnLoadDepartments" Content="Load Departments" Height="Auto" Margin="255,85,30,0" VerticalAlignment="Top" Width="515" Click="btnLoadDepartments_Click"/>

@@ -24,6 +24,7 @@ namespace DeliveryCompany_WPF.Pages
     public partial class Applications : Page
     {
         private readonly HttpClient _client = new HttpClient();
+        private static readonly string _url = "https://localhost:44365/api/v1/"; 
         public Applications()
         {
             _client.BaseAddress = new Uri("https://localhost:44365/api/v1");
@@ -41,17 +42,25 @@ namespace DeliveryCompany_WPF.Pages
 
         private async void GetApplications()
         {
-          //  dgUsers.DataContext = applications
-            var response = await _client.GetStringAsync("https://localhost:44365/api/v1/Application");
+            var response = await _client.GetStringAsync(_url + "Application");
             var applications = JsonConvert.DeserializeObject<List<DeliveryCompany_Wpf.Models.Application>>(response);
-            MessageBox.Show(applications.ToString());
             dgApplications.DataContext = applications;
             
         }
 
+        private async void UpdateApplication(DeliveryCompany_Wpf.Models.Application application)
+        {
+            await _client.PutAsJsonAsync(_url + "Application/" + application.ApplicationId, application);
+        }
+
+        private async void DeleteApplication(int applicationId)
+        {
+            await _client.DeleteAsync(_url + "Application/" + applicationId);
+        }
+
         private async void SaveApplication(DeliveryCompany_Wpf.Models.Application application)
         {
-            await _client.PostAsJsonAsync("https://localhost:44365/api/v1/Application", application);
+            await _client.PostAsJsonAsync(_url + "Application", application);
         }
 
         private void btnSaveApplication_Click(object sender, RoutedEventArgs e)
@@ -61,11 +70,11 @@ namespace DeliveryCompany_WPF.Pages
                 ReceivingAddress = txtReceivingAddress.Text,
                 ReceivingTown = txtReceivingTown.Text,
                 DeliveryTown = txtDeliveryTown.Text,
-                Weight = Int32.Parse(txtWeight.Text),
-                Length = Int32.Parse(txtLength.Text),
-                Width = Int32.Parse(txtWidth.Text),
-                Height = Int32.Parse(txtHeight.Text),
-                DepartmentId = Int32.Parse(txtDepartmentId.Text)
+                Weight = int.Parse(txtWeight.Text),
+                Length = int.Parse(txtLength.Text),
+                Width = int.Parse(txtWidth.Text),
+                Height = int.Parse(txtHeight.Text),
+                DepartmentId = int.Parse(txtDepartmentId.Text)
             };
             lblResponseMessageResult.Visibility = Visibility.Visible;
             lblResponseMessageResult.Content = "Application saved";

@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DeliveryCompany_Wpf.Models;
 using Newtonsoft.Json;
 
 namespace DeliveryCompany_WPF.Pages
@@ -24,6 +25,7 @@ namespace DeliveryCompany_WPF.Pages
     public partial class Departments : Page
     {
         private readonly HttpClient _client = new HttpClient();
+        private static readonly string _url = "https://localhost:44365/api/v1/";
         public Departments()
         {
             _client.BaseAddress = new Uri("https://localhost:44365/api/v1");
@@ -41,26 +43,35 @@ namespace DeliveryCompany_WPF.Pages
 
         private async void GetDepartments()
         {
-            var response = await _client.GetStringAsync("https://localhost:44365/api/v1/Department");
+            var response = await _client.GetStringAsync(_url + "Department");
             var departments = JsonConvert.DeserializeObject<List<DeliveryCompany_Wpf.Models.Department>>(response);
-            MessageBox.Show(departments.ToString());
             dgDepartments.DataContext = departments;
 
+            //var list = new List<DeliveryCompany_Wpf.Models.Department>()
+            //{
+            //    new Department() {DepartmentId = 1, Name = "Apple", ApplicationList = null},
+            //    new Department() {DepartmentId = 2, Name = "Orange", ApplicationList = null},
+            //    new Department() {DepartmentId = 3, Name = "Water", ApplicationList = null},
+            //    new Department() {DepartmentId = 4, Name = "Cook", ApplicationList = null}
+
+            //};
+            //dgDepartments.ItemsSource = new List<DeliveryCompany_Wpf.Models.Department>();
+            //dgDepartments.DataContext = list;
         }
 
         private async void SaveDepartment(DeliveryCompany_Wpf.Models.Department department)
         {
-            await _client.PostAsJsonAsync("https://localhost:44365/api/v1/Department", department);
+            await _client.PostAsJsonAsync(_url + "Department", department);
         }
 
         private async void UpdateDepartment(DeliveryCompany_Wpf.Models.Department department)
         {
-            await _client.PutAsJsonAsync("https://localhost:44365/api/v1/Department/" + department.DepartmentId, department);
+            await _client.PutAsJsonAsync(_url + "Department/" + department.DepartmentId, department);
         }
 
         private async void DeleteDepartment(int departmentId)
         {
-            await _client.DeleteAsync("https://localhost:44365/api/v1/Department/" + departmentId);
+            await _client.DeleteAsync(_url + "Department/" + departmentId);
         }
 
         private void btnSaveDepartment_Click(object sender, RoutedEventArgs e)
@@ -76,7 +87,7 @@ namespace DeliveryCompany_WPF.Pages
                 lblResponseMessageResult.Visibility = Visibility.Visible;
                 lblResponseMessageResult.Content = "Department saved";
 
-                this.SaveDepartment(department);
+                SaveDepartment(department);
             }
             else
             {
