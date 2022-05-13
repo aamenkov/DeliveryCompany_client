@@ -1,0 +1,46 @@
+﻿<Page x:Class="DeliveryCompany_WPF.Pages.Applications"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:DeliveryCompany_WPF.Pages"
+      xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Applications">
+
+    <Grid Background="{DynamicResource SecundaryBackgroundColor}">
+        <Label x:Name="lblReceivingAddress"  Content="Receiving Address :"  HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label x:Name="lblReceivingTown" Content="Receiving Town : " HorizontalAlignment="Left" Margin="10,85,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label x:Name="lblDeliveryTown" Content="Delivery Town :" HorizontalAlignment="Left" Margin="10,120,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label x:Name="lblWeight" Content="Weight :" HorizontalAlignment="Left" Margin="10,155,0,0" VerticalAlignment="Top" Foreground="White" RenderTransformOrigin="0.38,0.511"/>
+        <Label x:Name="lblLength" Content="Length :" HorizontalAlignment="Left" Margin="10,190,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label x:Name="lblWidth" Content="Width :" HorizontalAlignment="Left" Margin="10,225,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label x:Name="lblHeight" Content="Height :" HorizontalAlignment="Left" Margin="10,260,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.865,-1.575" Foreground="White"/>
+        <Label x:Name="lblDepartmentId" Content="DepartmentID :" HorizontalAlignment="Left" Margin="10,295,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.865,-1.575" Foreground="White"/>
+
+        <TextBox x:Name="txtReceivingAddress" HorizontalAlignment="Left" Margin="127,55,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Text="TestAddressWPF"/>
+        <TextBox x:Name="txtReceivingTown" HorizontalAlignment="Left" Margin="127,90,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Text="TestTownWPF"/>
+        <TextBox x:Name="txtDeliveryTown" HorizontalAlignment="Left" Margin="127,125,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Text="TestTownWPF"/>
+        <TextBox x:Name="txtWeight" HorizontalAlignment="Left" Margin="127,160,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Text="1"/>
+        <TextBox x:Name="txtLength" HorizontalAlignment="Left" Margin="127,195,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Text="2"/>
+        <TextBox x:Name="txtWidth" HorizontalAlignment="Left" Margin="127,230,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Text="3"/>
+        <TextBox x:Name="txtHeight" HorizontalAlignment="Left" Margin="127,265,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Text="4"/>
+        <TextBox x:Name="txtDepartmentId" HorizontalAlignment="Left" Margin="127,300,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Text="1"/>
+
+        <Button x:Name="btnSaveApplication" Content="Save Application" HorizontalAlignment="Left" Height="Auto" Margin="127,340,0,0" VerticalAlignment="Top" Width="120" Click="btnSaveApplication_Click"/>
+
+        <DataGrid x:Name="dgApplications" Margin="265,120,20,30" Width="515" 
+                  CanUserAddRows="True"
+            ItemsSource="{Binding Source=Applications}"
+            AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding ApplicationId}"/>
+                <DataGridTextColumn Header="Address" Binding="{Binding ReceivingAddress}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="btnLoadApplications" Content="Load Applications" Height="Auto" Margin="265,85,20,0" VerticalAlignment="Top" Width="515" Click="btnLoadApplications_Click"/>
+
+        <Label x:Name="lblResponseMessageResult" Content="" HorizontalAlignment="Left" Margin="120,380,0,0" VerticalAlignment="Top" Foreground="Green" Visibility="Hidden" Height="40" Width="145" FontSize="16"/>
+    </Grid>
+</Page>
